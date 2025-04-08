@@ -71,26 +71,31 @@ def game():
             print()
             
             # Ensure that only 1 character is entered
-            guess = input("Enter in a single character: ")
+            guess = input('Enter in a single character: ')
             if len(guess) == 1:
                 break
-            print("Try again, please only one character.")
+            print('Try again, please only one character.')
 
         # Add letter if it is in word and not in right_letters
         if guess in word and guess not in right_letters:
             # Append letter to right_letters
             right_letters.append(guess)
             print()
+
+            # Check to see if the game has been won
+            game_won = all(letter in right_letters for letter in word)
         # IF word is in right_letters, continue
         elif guess in right_letters:
-            print("You already tried this letter!\n")
+            print('You already tried this letter!\n')
         # If wrong letter, add to wrong_guesses
         else:
-            print("Sorry! That is not the correct letter!\n")
+            print('Sorry! That is not the correct letter!\n')
             wrong_guesses += 1
 
     if wrong_guesses == 5:
-        print(f"Sorry! You did not get the word! It was {word}.")
+        print(f'Sorry! You did not get the word! It was {word}.')
+    else:
+        print(f'You got it! The word was {word}!')
 
 
 def main():
