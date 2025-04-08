@@ -2,9 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import logging
 import openpyxl
+import random
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-sheetname = 'thousand_words.xlsx'
+book_name = 'thousand_words.xlsx'
 url = 'https://www.ef.edu/english-resources/english-vocabulary/top-1000-words/'
 
 def scraper():
@@ -38,9 +39,20 @@ def scraper():
     for index, word in enumerate(words.split('\n')):
         sheet[f'A{index+1}'] = word.strip()
     
-    wb.save(sheetname)
+    wb.save(book_name)
 
 def game():
+    logging.debug('In game')
+
+    # Open the workbook and grab a random word
+    wb = openpyxl.load_workbook(book_name)
+    sheet = wb.active
+    word_place = random.randint(1, 1000)
+
+    word = sheet[f'A{word_place}']
+    length = word.len()
+
+    print('_' * length)
 
 
 
