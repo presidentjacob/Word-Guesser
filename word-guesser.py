@@ -1,10 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import logging
+import openpyxl
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+sheetname = 'thousand_words.xlsx'
+url = 'https://www.ef.edu/english-resources/english-vocabulary/top-1000-words/'
 
-def scraper(url):
+def scraper():
     # Attempt to get a response from the url, exit if no response
     logging.debug('Attempting scraper')
     try:
@@ -26,13 +29,23 @@ def scraper(url):
     # Get the second paragraph where all the words are held
     words = paragraphs[1].text
 
+    # Create a workbook to write to
+    wb = openpyxl.Workbook()
+    sheet = wb.active
+    sheet.title = 'Words'
+
     # Split words based on newline
-    for word in words.split('\n'):
-        print(word.strip())
+    for index, word in enumerate(words.split('\n')):
+        sheet[f'A{index+1}'] = word.strip()
+    
+    wb.save(sheetname)
+
+def game():
+
 
 
 def main():
-    url = 'https://www.ef.edu/english-resources/english-vocabulary/top-1000-words/'
-    scraper(url)
+    scraper()
+    game()
 
 main()
