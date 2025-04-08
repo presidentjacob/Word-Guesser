@@ -53,7 +53,6 @@ def game():
     length = len(word)
 
     # Begin the game
-    print('_ ' * length, '\n')
     wrong_guesses = 0
 
     right_letters = []
@@ -61,18 +60,19 @@ def game():
     
     while wrong_guesses < 5 and game_won == False:
         while True:
+            for i in range(length):
+                if word[i] in right_letters:
+                    print(f'{word[i]} ', end='')
+                else:
+                    print('_ ', end='')
+            print()
             guess = input("Enter in a single character: ")
             if len(guess) == 1:
                 break
             print("Try again, please only one character.")
         if guess in word and guess not in right_letters:
             right_letters.append(guess)
-            for i in range(length):
-                if word[i] in right_letters:
-                    print(f'{word[i]} ', end='')
-                else:
-                    print('_ ', end='')
-            print('\n')
+            print()
         elif guess in right_letters:
             print("You already tried this letter!\n")
             continue
