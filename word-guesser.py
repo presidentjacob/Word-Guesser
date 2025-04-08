@@ -49,8 +49,8 @@ def game():
     sheet = wb.active
     word_place = random.randint(1, 1000)
 
-    word = sheet[f'A{word_place}']
-    length = word.len()
+    word = sheet[f'A{word_place}'].value
+    length = len(word)
 
     print('_' * length)
 
